@@ -24,9 +24,11 @@ export async function GET(request) {
       );
     }
 
-    // Build query parameters for Strapi API
+    // Build query parameters for Strapi API (newest first)
     const params = new URLSearchParams({
       'filters[title][$containsi]': titleQuery,
+      'sort[0]': 'publishedDate:desc',
+      'sort[1]': 'createdAt:desc',
       'pagination[page]': page,
       'pagination[pageSize]': pageSize,
     });

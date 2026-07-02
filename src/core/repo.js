@@ -95,6 +95,15 @@ const getByCategory = async (
   return response.data;
 };
 
+// Sort articles newest first. Uses the edition (issue) date when available,
+// falling back to the article's publishedDate then createdAt.
+const sortByNewest = (arr = []) =>
+  [...arr].sort((a, b) => {
+    const da = new Date(a?.edition?.date || a?.publishedDate || a?.createdAt || 0).getTime();
+    const db = new Date(b?.edition?.date || b?.publishedDate || b?.createdAt || 0).getTime();
+    return db - da;
+  });
+
 const getAllByCategory = async (category, locale = null) => {
   const apiCategory = mapCategoryToAPI(category);
   const populateParams = "?populate%5B0%5D=cover&populate%5B1%5D=author&populate%5B2%5D=edition";
@@ -123,7 +132,7 @@ const getAllByCategory = async (category, locale = null) => {
     rest.forEach((r) => { allData = allData.concat(r?.data || []); });
   }
 
-  return allData;
+  return sortByNewest(allData);
 };
 
 const getAllByTag = async (tag, locale = null) => {
@@ -153,7 +162,7 @@ const getAllByTag = async (tag, locale = null) => {
     rest.forEach((r) => { allData = allData.concat(r?.data || []); });
   }
 
-  return allData;
+  return sortByNewest(allData);
 };
 
 const getByAuthor = async (author, limit = null) => {

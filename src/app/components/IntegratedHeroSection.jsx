@@ -92,7 +92,7 @@ export default function IntegratedHeroSection({ bannerData }) {
       </div>
 
       {/* Article Selection List */}
-      <div className="flex flex-col md:flex-row border border-gray-400 bg-white">
+      <div className="flex flex-col md:flex-row bg-white">
         {articles.length > 0 ? (
           articles.map((article, index) => (
             <button
@@ -100,7 +100,7 @@ export default function IntegratedHeroSection({ bannerData }) {
               onClick={() => setSelectedArticleIndex(index)}
               className={`w-full md:w-1/3 p-4 transition-colors ${
                 selectedArticleIndex === index ? "bg-gray-200" : "bg-white"
-              } ${index !== articles.length - 1 ? "border-l border-gray-400" : ""}`}
+              }`}
             >
               <div className="flex items-center gap-4">
                 <div

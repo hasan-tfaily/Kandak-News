@@ -73,9 +73,13 @@ export default async function Home({ params }) {
   const matchesLang = (post) =>
     lang === 'ar' ? isArabic(post.title) : !isArabic(post.title);
 
-  // Transform API data to match component expectations
+  // Transform API data to match component expectations (newest first)
   const transformPostData = (posts) => {
-    const filtered = posts?.filter(matchesLang) || [];
+    const filtered = (posts?.filter(matchesLang) || []).sort((a, b) => {
+      const da = new Date(a?.edition?.date || a?.publishedDate || a?.createdAt || 0).getTime();
+      const db = new Date(b?.edition?.date || b?.publishedDate || b?.createdAt || 0).getTime();
+      return db - da;
+    });
     return filtered.map((post) => ({
       title: post.title,
       date: new Date(post.edition?.date || post.createdAt).toLocaleDateString("en-GB"),

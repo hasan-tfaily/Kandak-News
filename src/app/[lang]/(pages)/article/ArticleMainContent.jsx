@@ -49,7 +49,7 @@ const ArticleMainContent = ({ title, content, articleContent, tags, lang }) => {
                   />
                 )}
                 {item.quote && (
-                  <QuoteBreak text={item.quote} />
+                  <QuoteBreak text={item.quote} lang={lang} />
                 )}
                 {item.image && getCoverImageUrl(item.image) && (
                   <div className="my-4">

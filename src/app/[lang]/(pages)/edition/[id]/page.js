@@ -53,10 +53,13 @@ const EditionPage = async ({ params, searchParams }) => {
 
   // Extract articles from the edition and inject edition date for display
   const rawArticles = edition?.articles || edition?.data?.articles || [];
-  const articles = rawArticles.map((a) => ({
-    ...a,
-    edition: { date: edition.date },
-  }));
+  const articles = rawArticles
+    .map((a) => ({ ...a, edition: { date: edition.date } }))
+    .sort((a, b) => {
+      const da = new Date(a?.publishedDate || a?.createdAt || 0).getTime();
+      const db = new Date(b?.publishedDate || b?.createdAt || 0).getTime();
+      return db - da;
+    });
   // Get edition title
   const editionTitle = edition?.title
     ? `${edition.title} - ${lang === "ar" ? "العدد" : "Edition"} ${edition.number || editionNumber}`
