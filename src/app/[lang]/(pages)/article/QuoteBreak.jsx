@@ -6,18 +6,18 @@ const QuoteBreak = ({ text, lang = "ar" }) => {
     <div className="relative my-10 px-8 py-6 bg-white rounded-lg">
 
       <div
-        className={`absolute top-0 ${isAr ? "right-0" : "left-0"} p-2 text-red-600 text-8xl select-none leading-none`}
+        className={`absolute top-0 ${"left-0"} p-2 text-red-600 text-8xl select-none leading-none`}
       >
         ❝
       </div>
 
       <div
-        className={`absolute bottom-0 ${isAr ? "left-0" : "right-0"} p-2 text-red-600 text-8xl select-none leading-none`}
+        className={`absolute bottom-0 ${"right-0"} p-2 text-red-600 text-8xl select-none leading-none`}
       >
         ❞
       </div>
 
-      <p className="font-extrabold text-center text-4xl px-12">{text}</p>
+      <p className="font-extrabold text-center text-4xl px-12 text-black">{text}</p>
     </div>
   );
 };
